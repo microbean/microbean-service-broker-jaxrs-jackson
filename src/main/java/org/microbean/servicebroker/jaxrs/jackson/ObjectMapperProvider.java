@@ -25,6 +25,8 @@ import javax.ws.rs.ext.Provider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import org.microbean.servicebroker.jackson.ServiceBrokerModule;
+
 @Provider
 public class ObjectMapperProvider implements ContextResolver<ObjectMapper> {
 
@@ -33,7 +35,8 @@ public class ObjectMapperProvider implements ContextResolver<ObjectMapper> {
   public ObjectMapperProvider() {
     super();
     final ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+    objectMapper.registerModule(new ServiceBrokerModule());
+    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);    
     this.objectMapper = objectMapper;
   }
 
